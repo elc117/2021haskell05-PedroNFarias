@@ -37,4 +37,9 @@ cpfDV digits mults =
   let expr = (sum $ zipWith (*) digits mults) `mod` 11
    in if expr < 2 then 0 else 11-expr
 
-   
+  
+andTable :: [(Bool, Bool, Bool)]
+andTable = zipWith (\x y -> (x,y,x && y)) p q
+    where p = [x | x <- [True,True,False,False]]
+          q = [x | x <- take qtd $ cycle[True,False]]
+          qtd = 4
