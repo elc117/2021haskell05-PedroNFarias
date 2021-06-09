@@ -1,14 +1,16 @@
 --Nome:
 
 bmi :: Float -> Float -> String
-bmi :: Float -> Float -> String
 bmi peso altura =
     let altquad = altura^2
         bmi = peso/altquad
-        in bmi
-            | bmi <= 18.5 = "Abaixo" 
-            | bmi > 18.5 && bmi < 30 = "Normal"
-            | bmi >= 30 = "Acima"
+        abaixo = 18.5
+        acima = 30
+     in if bmi <= abaixo
+        then "Abaixo"
+        else if bmi >= acima
+             then "Acima"
+             else "Normal"
 
 bmi' :: Float -> Float -> String
 bmi' peso altura  
@@ -22,3 +24,17 @@ bmi' peso altura
           abaixoS = "Abaixo"
           acimaS = "Acima"
           normalS = "Normal"
+
+
+cpfValid :: [Int] -> Bool
+cpfValid cpf = dv1 == cpf !! 9 && dv2 == cpf !! 10
+  where dv1 = cpfDV digits [10,9..]
+        dv2 = cpfDV (digits ++ [dv1]) [11,10..]
+        digits = take 9 cpf 
+
+cpfDV :: [Int] -> [Int] -> Int
+cpfDV digits mults = 
+  let expr = (sum $ zipWith (*) digits mults) `mod` 11
+   in if expr < 2 then 0 else 11-expr
+
+   
